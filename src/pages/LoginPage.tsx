@@ -23,6 +23,7 @@ import { toast } from 'sonner';
 import { useStore } from '../context/StoreContext';
 import { useLanguage } from '../i18n/LanguageContext';
 import { getDefaultRouteForRole } from '../utils/storeLogic';
+import { PwaActionControls } from '../components/ui/PwaActionControls';
 
 interface QuickRoleCard {
   userId: string;
@@ -285,16 +286,19 @@ export const LoginPage: React.FC = () => {
           </span>
         </div>
 
-        <button
-          type="button"
-          onClick={toggleLanguage}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-[#1e3a8a] bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 transition-colors cursor-pointer shadow-2xs"
-          title={language === 'en' ? 'हिन्दी में बदलें (Switch to Hindi)' : 'Switch to English'}
-          aria-label="Toggle language between English and Hindi"
-        >
-          <Languages className="w-3.5 h-3.5 text-[#1e3a8a] shrink-0" />
-          <span>{language === 'en' ? 'हिन्दी' : 'English'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <PwaActionControls />
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-[#1e3a8a] bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-200 transition-colors cursor-pointer shadow-2xs"
+            title={language === 'en' ? 'हिन्दी में बदलें (Switch to Hindi)' : 'Switch to English'}
+            aria-label="Toggle language between English and Hindi"
+          >
+            <Languages className="w-3.5 h-3.5 text-[#1e3a8a] shrink-0" />
+            <span>{language === 'en' ? 'हिन्दी' : 'English'}</span>
+          </button>
+        </div>
       </div>
 
       <div className="max-w-5xl w-full mx-auto space-y-8">
@@ -331,11 +335,10 @@ export const LoginPage: React.FC = () => {
                     if (emailError) setEmailError(undefined);
                   }}
                   placeholder="name@itirewa.mp.gov.in"
-                  className={`w-full pl-9 pr-3.5 py-2 rounded-xl border text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${
-                    emailError
+                  className={`w-full pl-9 pr-3.5 py-2 rounded-xl border text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${emailError
                       ? 'border-rose-400 focus:border-rose-600 focus:ring-2 focus:ring-rose-500/20'
                       : 'border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20'
-                  }`}
+                    }`}
                 />
               </div>
               {emailError && (
@@ -364,11 +367,10 @@ export const LoginPage: React.FC = () => {
                     if (passwordError) setPasswordError(undefined);
                   }}
                   placeholder="••••••••"
-                  className={`w-full pl-9 pr-10 py-2 rounded-xl border text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${
-                    passwordError
+                  className={`w-full pl-9 pr-10 py-2 rounded-xl border text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${passwordError
                       ? 'border-rose-400 focus:border-rose-600 focus:ring-2 focus:ring-rose-500/20'
                       : 'border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20'
-                  }`}
+                    }`}
                 />
                 <button
                   type="button"

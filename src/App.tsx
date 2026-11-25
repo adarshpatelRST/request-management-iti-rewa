@@ -9,6 +9,7 @@ import { Toaster } from 'sonner';
 import { StoreProvider, useStore } from './context/StoreContext';
 import { LanguageProvider } from './i18n/LanguageContext';
 import { VoiceTypingProvider } from './context/VoiceTypingContext';
+import { PwaProvider } from './context/PwaContext';
 import { AppShell } from './components/layouts/AppShell';
 import { LoginPage } from './pages/LoginPage';
 import { TODashboardPage } from './pages/to/TODashboardPage';
@@ -56,104 +57,106 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <VoiceTypingProvider>
-        <StoreProvider>
-          <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <Toaster
-          position={isMobile ? 'top-center' : 'bottom-right'}
-          richColors
-          closeButton
-          duration={5000}
-        />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<RootRedirect />} />
+      <PwaProvider>
+        <VoiceTypingProvider>
+          <StoreProvider>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
+              <Toaster
+                position={isMobile ? 'top-center' : 'bottom-right'}
+                richColors
+                closeButton
+                duration={5000}
+              />
+              <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<RootRedirect />} />
 
-          {/* Protected Role-Based Routes inside AppShell */}
-          <Route element={<AppShell />}>
-            {/* PART 2 ROUTES: Training Officer (TO) */}
-            <Route path="/to/dashboard" element={<TODashboardPage />} />
-            <Route path="/to/raise-request" element={<TORaiseRequestPage />} />
-            <Route
-              path="/to/new-request"
-              element={<Navigate to="/to/raise-request" replace />}
-            />
-            <Route path="/to/requests" element={<Navigate to="/to/dashboard" replace />} />
+                {/* Protected Role-Based Routes inside AppShell */}
+                <Route element={<AppShell />}>
+                  {/* PART 2 ROUTES: Training Officer (TO) */}
+                  <Route path="/to/dashboard" element={<TODashboardPage />} />
+                  <Route path="/to/raise-request" element={<TORaiseRequestPage />} />
+                  <Route
+                    path="/to/new-request"
+                    element={<Navigate to="/to/raise-request" replace />}
+                  />
+                  <Route path="/to/requests" element={<Navigate to="/to/dashboard" replace />} />
 
-            {/* PART 2 ROUTES: Training Superintendent (TS) */}
-            <Route
-              path="/ts/dashboard"
-              element={<TSVerificationQueuePage isDashboardView />}
-            />
-            <Route
-              path="/ts/queue"
-              element={<Navigate to="/ts/dashboard" replace />}
-            />
-            <Route
-              path="/ts/verification"
-              element={<Navigate to="/ts/dashboard" replace />}
-            />
-            <Route path="/ts/history" element={<TSHistoryPage />} />
+                  {/* PART 2 ROUTES: Training Superintendent (TS) */}
+                  <Route
+                    path="/ts/dashboard"
+                    element={<TSVerificationQueuePage isDashboardView />}
+                  />
+                  <Route
+                    path="/ts/queue"
+                    element={<Navigate to="/ts/dashboard" replace />}
+                  />
+                  <Route
+                    path="/ts/verification"
+                    element={<Navigate to="/ts/dashboard" replace />}
+                  />
+                  <Route path="/ts/history" element={<TSHistoryPage />} />
 
-            {/* PART 2 ROUTES: Principal */}
-            <Route path="/principal/dashboard" element={<PrincipalDashboardPage />} />
-            <Route
-              path="/principal/analytics"
-              element={<Navigate to="/principal/dashboard" replace />}
-            />
-            <Route path="/principal/approvals" element={<PrincipalApprovalsPage />} />
-            <Route path="/principal/store" element={<PrincipalStoreViewPage />} />
-            <Route path="/principal/requests" element={<PrincipalAllRequestsPage />} />
+                  {/* PART 2 ROUTES: Principal */}
+                  <Route path="/principal/dashboard" element={<PrincipalDashboardPage />} />
+                  <Route
+                    path="/principal/analytics"
+                    element={<Navigate to="/principal/dashboard" replace />}
+                  />
+                  <Route path="/principal/approvals" element={<PrincipalApprovalsPage />} />
+                  <Route path="/principal/store" element={<PrincipalStoreViewPage />} />
+                  <Route path="/principal/requests" element={<PrincipalAllRequestsPage />} />
 
-            {/* PART 3 ROUTES: Purchase Team */}
-            <Route
-              path="/purchase/dashboard"
-              element={<Navigate to="/purchase/approved" replace />}
-            />
-            <Route
-              path="/purchase/approved"
-              element={<PurchaseApprovedAndPrintPage />}
-            />
-            <Route
-              path="/purchase/consolidation"
-              element={<Navigate to="/purchase/approved" replace />}
-            />
-            <Route path="/purchase/orders" element={<PurchaseOrdersPage />} />
+                  {/* PART 3 ROUTES: Purchase Team */}
+                  <Route
+                    path="/purchase/dashboard"
+                    element={<Navigate to="/purchase/approved" replace />}
+                  />
+                  <Route
+                    path="/purchase/approved"
+                    element={<PurchaseApprovedAndPrintPage />}
+                  />
+                  <Route
+                    path="/purchase/consolidation"
+                    element={<Navigate to="/purchase/approved" replace />}
+                  />
+                  <Route path="/purchase/orders" element={<PurchaseOrdersPage />} />
 
-            {/* PART 3 ROUTES: Store Manager */}
-            <Route path="/store/dashboard" element={<StoreDashboardPage />} />
-            <Route path="/store/receiving" element={<StoreReceivingPage />} />
-            <Route
-              path="/store/challans"
-              element={<Navigate to="/store/receiving" replace />}
-            />
-            <Route path="/store/issues" element={<StoreDirectIssuesPage />} />
-            <Route path="/store/inventory" element={<StoreInventoryLedgerPage />} />
+                  {/* PART 3 ROUTES: Store Manager */}
+                  <Route path="/store/dashboard" element={<StoreDashboardPage />} />
+                  <Route path="/store/receiving" element={<StoreReceivingPage />} />
+                  <Route
+                    path="/store/challans"
+                    element={<Navigate to="/store/receiving" replace />}
+                  />
+                  <Route path="/store/issues" element={<StoreDirectIssuesPage />} />
+                  <Route path="/store/inventory" element={<StoreInventoryLedgerPage />} />
 
-            {/* PART 3 ROUTES: System Admin */}
-            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-            <Route
-              path="/admin/analytics"
-              element={<Navigate to="/admin/dashboard" replace />}
-            />
-            <Route
-              path="/admin/store"
-              element={<StoreInventoryLedgerPage readOnly />}
-            />
-            <Route path="/admin/catalog" element={<AdminCatalogPage />} />
-            <Route path="/admin/users" element={<AdminUsersHierarchyPage />} />
-            <Route
-              path="/admin/hierarchy"
-              element={<Navigate to="/admin/users" replace />}
-            />
-            <Route path="/admin/audit-logs" element={<AdminAuditLogsPage />} />
-          </Route>
+                  {/* PART 3 ROUTES: System Admin */}
+                  <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+                  <Route
+                    path="/admin/analytics"
+                    element={<Navigate to="/admin/dashboard" replace />}
+                  />
+                  <Route
+                    path="/admin/store"
+                    element={<StoreInventoryLedgerPage readOnly />}
+                  />
+                  <Route path="/admin/catalog" element={<AdminCatalogPage />} />
+                  <Route path="/admin/users" element={<AdminUsersHierarchyPage />} />
+                  <Route
+                    path="/admin/hierarchy"
+                    element={<Navigate to="/admin/users" replace />}
+                  />
+                  <Route path="/admin/audit-logs" element={<AdminAuditLogsPage />} />
+                </Route>
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </StoreProvider>
-  </VoiceTypingProvider>
-</LanguageProvider>
-);
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </BrowserRouter>
+          </StoreProvider>
+        </VoiceTypingProvider>
+      </PwaProvider>
+    </LanguageProvider>
+  );
 }

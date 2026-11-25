@@ -27,6 +27,7 @@ import { useStore } from '../../context/StoreContext';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { useVoiceTyping } from '../../context/VoiceTypingContext';
 import { VoiceTypeToggle } from '../ui/VoiceTypeToggle';
+import { PwaActionControls } from '../ui/PwaActionControls';
 import { UserRole, AppNotification } from '../../types';
 
 interface NavItem {
@@ -404,8 +405,9 @@ export const AppShell: React.FC = () => {
           </div>
         </div>
 
-        {/* Right: Language Toggle + Notification Bell + User Profile + Logout */}
+        {/* Right: PWA Controls + Language Toggle + Notification Bell + User Profile + Logout */}
         <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
+          <PwaActionControls />
           {/* Language Switcher Button (हिन्दी / English) */}
           <button
             type="button"
@@ -583,11 +585,9 @@ export const AppShell: React.FC = () => {
         {/* Left Sidebar */}
         <aside
           aria-label="Role Navigation"
-          className={`fixed lg:static inset-y-0 left-0 z-20 ${
-            isSidebarCollapsed ? 'w-20' : 'w-64'
-          } bg-white border-r border-[#e2e8f0] flex flex-col justify-between transition-all duration-200 ease-out no-print ${
-            mobileMenuOpen ? 'translate-x-0 pt-16 lg:pt-0' : '-translate-x-full lg:translate-x-0'
-          }`}
+          className={`fixed lg:static inset-y-0 left-0 z-20 ${isSidebarCollapsed ? 'w-20' : 'w-64'
+            } bg-white border-r border-[#e2e8f0] flex flex-col justify-between transition-all duration-200 ease-out no-print ${mobileMenuOpen ? 'translate-x-0 pt-16 lg:pt-0' : '-translate-x-full lg:translate-x-0'
+            }`}
         >
           <div className="p-3 sm:p-4 space-y-5 overflow-y-auto">
             {visibleSections.map((section) => (
@@ -609,12 +609,10 @@ export const AppShell: React.FC = () => {
                         title={isSidebarCollapsed ? t(item.labelKey) : undefined}
                         onClick={() => setMobileMenuOpen(false)}
                         className={({ isActive }) =>
-                          `relative flex items-center ${
-                            isSidebarCollapsed ? 'justify-center px-2 py-2.5' : 'justify-between gap-2.5 px-3 py-2.5'
-                          } rounded-lg text-xs font-semibold transition-colors ${
-                            isActive
-                              ? 'bg-[#2563eb] text-white shadow-2xs'
-                              : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                          `relative flex items-center ${isSidebarCollapsed ? 'justify-center px-2 py-2.5' : 'justify-between gap-2.5 px-3 py-2.5'
+                          } rounded-lg text-xs font-semibold transition-colors ${isActive
+                            ? 'bg-[#2563eb] text-white shadow-2xs'
+                            : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                           }`
                         }
                       >
