@@ -1,0 +1,6 @@
+{
+  "name": "Govt. ITI Rewa — Store & Material Procurement System",
+  "description": "Official Store Inventory, Requisition & Material Procurement Management System for Government Industrial Training Institute (ITI), Rewa (M.P.).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
