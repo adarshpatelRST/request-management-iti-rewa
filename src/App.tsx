@@ -58,7 +58,7 @@ export default function App() {
     <LanguageProvider>
       <VoiceTypingProvider>
         <StoreProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Toaster
           position={isMobile ? 'top-center' : 'bottom-right'}
           richColors
